@@ -1,0 +1,871 @@
+<transformation>
+  <info>
+    <name>511_FecharChamado</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <directory>&#x2f;</directory>
+    <parameters>
+      <parameter>
+        <name>token</name>
+        <description>Tokem autentica&#xe7;&#xe3;o OTRS</description>
+        <type>String</type>
+        <uiControlType>TextBox</uiControlType>
+        <list_of_values/>
+        <valueSeparator/>
+        <default_value/>
+        <secret>N</secret>
+        <optional>N</optional>
+        <runtime>Y</runtime>
+      </parameter>
+    </parameters>
+    <parameterConfiguration>
+      <grouping>
+      </grouping>
+    </parameterConfiguration>
+    <ps_variables>
+    </ps_variables>
+    <logging_table>
+    </logging_table>
+    <size_rowset>10000</size_rowset>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+    <created_user>-</created_user>
+    <created_date>2022&#x2f;08&#x2f;29 14&#x3a;26&#x3a;05.217</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2022&#x2f;10&#x2f;26 08&#x3a;47&#x3a;19.700</modified_date>
+	<key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <is_key_private>N</is_key_private>
+  </info>
+  <notepads>
+  </notepads>
+  <groups>
+  </groups>
+  <connection>
+    <name>GruDB</name>
+    <server>&#x24;&#x7b;CredentialDB.Parameter1&#x7d;</server>
+    <type>SQLITE</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;CredentialDB.Parameter2&#x7d;</database>
+    <port>-1</port>
+    <username/>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>-1</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+    <hop>
+      <from>Dummy &#x28;do nothing&#x29; 2</from>
+      <to>FalhaTransfer 2</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FalhaClose</from>
+      <to>Blocking Step 2</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FalhaTransfer 2</from>
+      <to>Blocking Step 2</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterCloseResponse</from>
+      <to>FalhaClose</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterCloseResponse</from>
+      <to>OutputClose</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>RestCloseTicket</from>
+      <to>Dummy &#x28;do nothing&#x29; 2</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>RestCloseTicket</from>
+      <to>FilterCloseResponse</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>Blocking Step 2</from>
+      <to>OutputClose 1</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>OutputClose 1</from>
+      <to>FilterReturn</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterReturn</from>
+      <to>Copy rows to result</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>OutputClose</from>
+      <to>SuccesClose</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>SuccesClose</from>
+      <to>FilterReturn</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>LogAPI</from>
+      <to>RestCloseTicket</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>Get Variables</from>
+      <to>ConertBase64</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>ConertBase64</from>
+      <to>TextoChamado</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>TextoChamado</from>
+      <to>LogAPI</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+  </order>
+  <step>
+    <name>Blocking Step 2</name>
+    <type>BlockingStep</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <pass_all_rows>N</pass_all_rows>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>block</prefix>
+      <cache_size>5000</cache_size>
+      <compress>Y</compress>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>330</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>ConertBase64</name>
+    <type>ExecutePythonScript</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<rows_to_process>ALL</rows_to_process>
+<rows_to_process_size/>
+<reservoir_sampling>N</reservoir_sampling>
+<reservoir_sampling_size/>
+<reservoir_sampling_seed>1</reservoir_sampling_seed>
+<include_input_as_output>Y</include_input_as_output>
+<py_script>import base64 &#xd;&#xa;  &#xd;&#xa;imagem &#x3d; rs&#x5b;&#x22;resultado&#x22;&#x5d;&#x5b;0&#x5d;&#xd;&#xa;  &#xd;&#xa;with open&#x28;imagem, &#x22;rb&#x22;&#x29; as image2string&#x3a; &#xd;&#xa;    converted_string &#x3d; base64.b64encode&#x28;image2string.read&#x28;&#x29;&#x29; &#xd;&#xa;print&#x28;converted_string&#x29; &#xd;&#xa;</py_script>
+<load_script_at_runtime>N</load_script_at_runtime>
+<script_to_load/>
+<continue_on_unset_vars>N</continue_on_unset_vars>
+<py_vars_to_get>converted_string</py_vars_to_get>
+<include_frame_row_index>N</include_frame_row_index>
+   <frame_names>
+    <frame_name0>rs</frame_name0>
+    </frame_names>
+   <incoming_step_names>
+    <step_name0>Get Variables</step_name0>
+   </incoming_step_names>
+   <output_fields>
+        <output_field>
+            <field_name>token</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>ticket</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>resultado</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>stateIdFech</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>fileName</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>converted_string</field_name>
+
+            <type>String</type>
+        </output_field>
+    </output_fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>240</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Copy rows to result</name>
+    <type>RowsToResult</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>510</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Dummy &#x28;do nothing&#x29; 2</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FalhaClose</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var status &#x3d; &#x22;Falha ao realizar fechamento do Ticket&#x3a; &#x22; &#x2b; ticket&#xd;&#xa;&#xd;&#xa;var mensagem &#x3d; &#x27;Retorno&#x3a; &#x27; &#x2b; ArcRespBody&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>status</name>
+        <rename>status</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>mensagem</name>
+        <rename>mensagem</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>600</xloc>
+      <yloc>330</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FalhaTransfer 2</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var status &#x3d; &#x22;Falha ao realizar o direcionamento do Ticket&#x3a; &#x22; &#x2b; ticket&#xd;&#xa;&#xd;&#xa;var mensagem &#x3d; &#x27;Retorno&#x3a; Tempo de resposta excedido. &#x27; &#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>status</name>
+        <rename>status</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>mensagem</name>
+        <rename>mensagem</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>210</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FilterCloseResponse</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<send_true_to>OutputClose</send_true_to>
+<send_false_to>FalhaClose</send_false_to>
+    <compare>
+<condition>
+ <negated>Y</negated>
+ <conditions>
+  <condition>
+   <negated>N</negated>
+   <leftvalue>ArcRespStatus</leftvalue>
+   <function>&#x3c;&#x3e;</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>200 OK</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  <condition>
+   <negated>N</negated>
+   <operator>OR</operator>
+   <leftvalue>ArcRespBody</leftvalue>
+   <function>CONTAINS</function>
+   <rightvalue/>
+   <value><name>constant</name><type>String</type><text>Error</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value>   </condition>
+  </conditions>
+ </condition>
+    </compare>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>600</xloc>
+      <yloc>210</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FilterReturn</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>      <field>        <name>ticket</name>
+      </field>      <field>        <name>mensagem</name>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>420</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Get Variables</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>token</name>
+        <variable>&#x24;&#x7b;token&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ticket</name>
+        <variable>&#x24;&#x7b;ticket&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>resultado</name>
+        <variable>&#x24;&#x7b;result&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>stateIdFech</name>
+        <variable>&#x24;&#x7b;StateIdFech&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>fileName</name>
+        <variable>&#x24;&#x7b;fileName&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>120</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>LogAPI</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage>&#x3c;--------------API Log-----------&#x3e;</logmessage>
+    <fields>
+      </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>OutputClose</name>
+    <type>ExecSQL</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>GruDB</connection>
+    <execute_each_row>Y</execute_each_row>
+    <single_statement>N</single_statement>
+    <replace_variables>N</replace_variables>
+    <quoteString>N</quoteString>
+    <sql>UPDATE MonitorEvids&#xd;&#xa;SET &#xd;&#xa;      Status&#x3d;&#x27;Concluido&#x27;&#xd;&#xa;WHERE Ticket&#x3d;&#x3f;&#x3b;</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+       <argument><name>ticket</name></argument>
+    </arguments>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>210</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>OutputClose 1</name>
+    <type>ExecSQL</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>GruDB</connection>
+    <execute_each_row>Y</execute_each_row>
+    <single_statement>N</single_statement>
+    <replace_variables>N</replace_variables>
+    <quoteString>N</quoteString>
+    <sql>UPDATE MonitorEvids&#xd;&#xa;SET &#xd;&#xa;      Status&#x3d;&#x27;Concluido&#x27;&#xd;&#xa;	, result&#x3d; &#x27;&#x3f;&#x27;&#xd;&#xa;WHERE Ticket&#x3d;&#x3f;&#x3b;</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+       <argument><name>mensagem</name></argument>
+       <argument><name>ticket</name></argument>
+    </arguments>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>420</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>RestCloseTicket</name>
+    <type>AdvancedRestClient</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <httpMethod>POST</httpMethod>
+      <url>&#x24;&#x7b;BaseAPI&#x7d;&#x2f;TicketUpdate</url>
+      <urlFromField>N</urlFromField>
+      <urlField/>
+      <requestTimeoutSeconds>&#x24;&#x7b;timeResponse&#x7d;</requestTimeoutSeconds>
+      <sslProxy>
+       <ignoreSslVerification>N</ignoreSslVerification>
+       <trustStoreFilePath/>
+       <trustStorePass>Encrypted </trustStorePass>
+       <useSystemProxy>N</useSystemProxy>
+       <proxyType>http</proxyType>
+       <proxyHost/>
+       <proxyPort/>
+       <proxyUsername/>
+       <proxyPass>Encrypted </proxyPass>
+      </sslProxy>
+      <auth>
+       <authType>NONE</authType>
+       <authUsername/>
+       <authPass>Encrypted </authPass>
+       <bearerToken/>
+      </auth>
+      <requestParameters>
+      </requestParameters>
+      <requestHeaders>
+      <parameter>
+      	<keyType/>
+      	<key>Content-Type</key>
+      	<value>application&#x2f;json</value>
+      	<valueField/>
+      	<desc/>
+      </parameter>
+      </requestHeaders>
+      <requestBody>
+       <reqBodyType>RAW</reqBodyType>
+       <rawReqBodyContentType>JSON &#x28;application&#x2f;json&#x29;</rawReqBodyContentType>
+       <rawReqBodyText>&#x7b;&#xd;&#xa;  &#x22;Article&#x22; &#x3a; &#x7b;&#xd;&#xa;    &#x22;Body&#x22; &#x3a; &#x22;&#x3f;&#x7b;body&#x7d;&#x22;,&#xd;&#xa;    &#x22;Charset&#x22; &#x3a; &#x22;utf-8&#x22;,&#xd;&#xa;    &#x22;CommunicationChannel&#x22; &#x3a; &#x22;Internal&#x22;,&#xd;&#xa;    &#x22;HistoryComment&#x22; &#x3a; &#x22;&#x3f;&#x7b;subject&#x7d;&#x22;,&#xd;&#xa;    &#x22;HistoryType&#x22; &#x3a; &#x22;AddNote&#x22;,&#xd;&#xa;    &#x22;IsVisibleForCustomer&#x22; &#x3a; 1,&#xd;&#xa;    &#x22;MimeType&#x22; &#x3a; &#x22;text&#x2f;html&#x22;,&#xd;&#xa;    &#x22;Subject&#x22; &#x3a; &#x22;&#x3f;&#x7b;subject&#x7d;&#x22;&#xd;&#xa;  &#x7d;,&#xd;&#xa;  &#x22;SessionID&#x22; &#x3a; &#x22;&#x3f;&#x7b;token&#x7d;&#x22;,&#xd;&#xa;  &#x22;Ticket&#x22; &#x3a; &#x7b;&#xd;&#xa;    &#x22;PendingTime&#x22; &#x3a; &#x7b;&#xd;&#xa;      &#x22;Diff&#x22; &#x3a; 4320&#xd;&#xa;    &#x7d;,&#xd;&#xa;    &#x22;StateID&#x22; &#x3a; &#x22;&#x3f;&#x7b;stateIdFech&#x7d;&#x22;,&#xd;&#xa;    &#x22;Subject&#x22; &#x3a; &#x22;Resolvido&#x22;&#xd;&#xa;  &#x7d;,&#xd;&#xa;  &#x22;TicketID&#x22; &#x3a; &#x22;&#x3f;&#x7b;ticket&#x7d;&#x22; ,&#xd;&#xa;	&#x22;Attachment&#x22;&#x3a;&#x5b;&#xd;&#xa;      &#x7b;&#xd;&#xa;         &#x22;Content&#x22;&#x3a; &#x22;&#x3f;&#x7b;converted_string&#x7d;&#x22;,&#xd;&#xa;         &#x22;ContentType&#x22;&#x3a;&#x22;application&#x2f;jpg&#x22;,&#xd;&#xa;         &#x22;Filename&#x22;&#x3a;&#x22;&#x3f;&#x7b;fileName&#x7d;&#x22;&#xd;&#xa;      &#x7d;&#xd;&#xa;   &#x5d;&#xd;&#xa;&#x7d;</rawReqBodyText>
+      </requestBody>
+      <responseBody>
+       <httpRespStatusField>ArcRespStatus</httpRespStatusField>
+       <httpRespTimeField>ArcRespTime</httpRespTimeField>
+       <httpRespHeadersField>ArcResponseHeaders</httpRespHeadersField>
+       <httpRespCookiesField>ArcRespCookies</httpRespCookiesField>
+       <httpRespBodyField>ArcRespBody</httpRespBodyField>
+       <httpRespOutputFileField>ArcRespOutputFile</httpRespOutputFileField>
+       <addHttpRespFileToResult>N</addHttpRespFileToResult>
+      </responseBody>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>600</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>SuccesClose</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var status &#x3d; &#x22;Falha ao realizar fechamento do Ticket&#x3a; &#x22; &#x2b; ticket&#xd;&#xa;&#xd;&#xa;var mensagem &#x3d; &#x27;Sucesso&#x27;&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>status</name>
+        <rename>status</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>mensagem</name>
+        <rename>mensagem</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>330</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>TextoChamado</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var subject &#x3d; &#x27;Chamado encerrado pelo AutomationEdge&#x27;&#xd;&#xa;&#xd;&#xa;var body &#x3d; &#x27;Ap&#xf3;s procedimento realizado no monitor, foi reestabelecido o monitor conforme print em anexo.&#x27;&#xd;&#xa;&#xd;&#xa;var contentAnexo &#x3d; &#x27;Print Evids&#x27;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;&#x2f;&#x2f;Retirar delimitadores do c&#xf3;digo base64 que python insere a mais na string&#xd;&#xa;var base &#x3d; converted_string&#xd;&#xa;&#xd;&#xa;base &#x3d; base.replace&#x28;&#x22;b&#x27;&#x22;, &#x22;&#x22;&#x29;&#xd;&#xa;base &#x3d; base.replace&#x28;&#x22;&#x27;&#x22;, &#x22;&#x22;&#x29;&#xd;&#xa;&#xd;&#xa;var converted_string &#x3d; base</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>subject</name>
+        <rename>subject</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>body</name>
+        <rename>body</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>contentAnexo</name>
+        <rename>contentAnexo</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>converted_string</name>
+        <rename>converted_string</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>360</xloc>
+      <yloc>120</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>RestCloseTicket</source_step>
+        <target_step>Dummy &#x28;do nothing&#x29; 2</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename/>
+        <descriptions_valuename/>
+        <fields_valuename/>
+        <codes_valuename/>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+  <slave-step-copy-partition-distribution>
+  </slave-step-copy-partition-distribution>
+  <slave_workflow>N</slave_workflow>
+</transformation>

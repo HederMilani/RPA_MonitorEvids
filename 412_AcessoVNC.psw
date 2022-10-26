@@ -1,0 +1,1393 @@
+<transformation>
+  <info>
+    <name>512_AcessoVNC</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <directory>&#x2f;</directory>
+    <parameters>
+      <parameter>
+        <name>ip</name>
+        <description>IP referente ao monitor a ser acessado</description>
+        <type>String</type>
+        <uiControlType>TextBox</uiControlType>
+        <list_of_values/>
+        <valueSeparator/>
+        <default_value>172.26.18.133</default_value>
+        <secret>N</secret>
+        <optional>N</optional>
+        <runtime>Y</runtime>
+      </parameter>
+      <parameter>
+        <name>ticket</name>
+        <description>Ticket referente ao chamado</description>
+        <type>String</type>
+        <uiControlType>TextBox</uiControlType>
+        <list_of_values/>
+        <valueSeparator/>
+        <default_value/>
+        <secret>N</secret>
+        <optional>N</optional>
+        <runtime>Y</runtime>
+      </parameter>
+    </parameters>
+    <parameterConfiguration>
+      <grouping>
+      </grouping>
+    </parameterConfiguration>
+    <ps_variables>
+    </ps_variables>
+    <logging_table>
+    </logging_table>
+    <size_rowset>10000</size_rowset>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+    <created_user>-</created_user>
+    <created_date>2022&#x2f;09&#x2f;01 11&#x3a;54&#x3a;51.323</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2022&#x2f;10&#x2f;26 08&#x3a;47&#x3a;18.971</modified_date>
+	<key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <is_key_private>N</is_key_private>
+  </info>
+  <notepads>
+  </notepads>
+  <groups>
+  </groups>
+  <order>
+    <hop>
+      <from>Try</from>
+      <to>UltraVncVisivel</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>UltraVncVisivel</from>
+      <to>SetIP</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>ClickConnect</from>
+      <to>PasswordVisivel</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>PasswordVisivel</from>
+      <to>SetSenha</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>SetSenha</from>
+      <to>ClickLogOn</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>ClickLogOn</from>
+      <to>Catch</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>ClickOptions</from>
+      <to>CheckAutoView</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>SetIP</from>
+      <to>ClickOptions</to>
+      <enabled>N</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>ClickOK</from>
+      <to>ClickConnect</to>
+      <enabled>N</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>Get Variables</from>
+      <to>Try</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>Catch</from>
+      <to>LogSucces</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>Catch</from>
+      <to>LogFail</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>LogSucces</from>
+      <to>ReturnSuccess</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>LogFail</from>
+      <to>FilterRowsReturn</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>ReturnSuccess</from>
+      <to>FilterRowsReturn</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterRowsReturn</from>
+      <to>Copy rows to result</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>CheckAutoView</from>
+      <to>SetScaleView</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>SetScaleView</from>
+      <to>ClickOK</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>SetIP</from>
+      <to>ClickConnect</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>UltraVncVisivel</from>
+      <to>Catch</to>
+      <enabled>Y</enabled>
+      <visible>N</visible>
+    </hop>
+    <hop>
+      <from>SetIP</from>
+      <to>Catch</to>
+      <enabled>Y</enabled>
+      <visible>N</visible>
+    </hop>
+    <hop>
+      <from>ClickConnect</from>
+      <to>Catch</to>
+      <enabled>Y</enabled>
+      <visible>N</visible>
+    </hop>
+    <hop>
+      <from>PasswordVisivel</from>
+      <to>Catch</to>
+      <enabled>Y</enabled>
+      <visible>N</visible>
+    </hop>
+    <hop>
+      <from>SetSenha</from>
+      <to>Catch</to>
+      <enabled>Y</enabled>
+      <visible>N</visible>
+    </hop>
+    <hop>
+      <from>ClickLogOn</from>
+      <to>Catch</to>
+      <enabled>Y</enabled>
+      <visible>N</visible>
+    </hop>
+  </order>
+  <step>
+    <name>Catch</name>
+    <type>Catch</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <nrErrorsField/>
+      <errorDespField>errorDescripition</errorDespField>
+      <errorFieldField/>
+      <errorCodeField/>
+      <errorStepNameField>errorStep</errorStepNameField>
+<use_contains>N</use_contains>
+             <tryCatchPairName>PS_Try78810465943466</tryCatchPairName>
+<default_target_step>LogSucces</default_target_step>
+<default_target_error_step>LogFail</default_target_error_step>
+<cases></cases><fields><field><fieldName>senhaVNC</fieldName>
+<fieldDefaultValue/>
+</field><field><fieldName>ip</fieldName>
+<fieldDefaultValue/>
+</field><field><fieldName>ticket</fieldName>
+<fieldDefaultValue/>
+</field></fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1170</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>CheckAutoView</name>
+    <type>Windows-App-GUI-MouseAction</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<actionType>TOGGLE_ITEM</actionType>
+
+<horizontalScroll/>
+
+<verticalScroll/>
+
+<toggleState>TRUE</toggleState>
+
+<sourceWindowPath>&#x2f;w&#x5b;Desktop&#x5d;&#x2f;w&#x5b; Connection Options...&#x5d;</sourceWindowPath>
+
+<sourceGroup>
+        <elementData>
+                <absolutePath>&#x2f;CheckBox&#x5b;16&#x5d;</absolutePath>
+
+                <XPath/>
+
+                <automationId>1029</automationId>
+
+                <indexForAutomationId/>
+
+                <name>Auto</name>
+
+                <indexForName/>
+
+                <className>Button</className>
+
+                <indexForClassName/>
+
+                <controlType>ControlType.CheckBox</controlType>
+
+                <indexForControlType/>
+
+                <acceleratorKey/>
+
+                <accessKey/>
+
+                <helpText/>
+
+                <localizedControlType>check box</localizedControlType>
+
+                <processInfo/>
+
+                <supportedPatterns>InvokePatternIdentifiers.Pattern,TogglePatternIdentifiers.Pattern,LegacyIAccessiblePatternIdentifiers.Pattern</supportedPatterns>
+
+                <frameworkId>Win32</frameworkId>
+
+        </elementData>
+</sourceGroup>
+<sourceCriteria>ABSOLUTE_XPATH</sourceCriteria>
+
+<sourceCriteriaValue>&#x2f;CheckBox&#x5b;16&#x5d;</sourceCriteriaValue>
+
+<sourceElementIndex>0</sourceElementIndex>
+
+      <timeout/>
+
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>690</xloc>
+      <yloc>150</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>ClickConnect</name>
+    <type>Windows-App-GUI-MouseAction</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<actionType>CLICK</actionType>
+
+<horizontalScroll/>
+
+<verticalScroll/>
+
+<toggleState/>
+
+<sourceWindowPath>&#x2f;w&#x5b;Desktop&#x5d;&#x2f;w&#x5b;UltraVNC Viewer - Win32 1.0.9.6.1&#x5d;</sourceWindowPath>
+
+<sourceGroup>
+        <elementData>
+                <absolutePath>&#x2f;Button&#x5b;1&#x5d;</absolutePath>
+
+                <XPath/>
+
+                <automationId>1</automationId>
+
+                <indexForAutomationId/>
+
+                <name>Connect</name>
+
+                <indexForName/>
+
+                <className>Button</className>
+
+                <indexForClassName/>
+
+                <controlType>ControlType.Button</controlType>
+
+                <indexForControlType/>
+
+                <acceleratorKey/>
+
+                <accessKey/>
+
+                <helpText/>
+
+                <localizedControlType>button</localizedControlType>
+
+                <processInfo/>
+
+                <supportedPatterns>InvokePatternIdentifiers.Pattern,LegacyIAccessiblePatternIdentifiers.Pattern</supportedPatterns>
+
+                <frameworkId>Win32</frameworkId>
+
+        </elementData>
+</sourceGroup>
+<sourceCriteria>ABSOLUTE_XPATH</sourceCriteria>
+
+<sourceCriteriaValue>&#x2f;Button&#x5b;1&#x5d;</sourceCriteriaValue>
+
+<sourceElementIndex>0</sourceElementIndex>
+
+      <timeout/>
+
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1050</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>ClickLogOn</name>
+    <type>Windows-App-GUI-MouseAction</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<actionType>CLICK</actionType>
+
+<horizontalScroll/>
+
+<verticalScroll/>
+
+<toggleState/>
+
+<sourceWindowPath>&#x2f;w&#x5b;Desktop&#x5d;&#x2f;w&#x5b;VNC Authentication&#x5d;</sourceWindowPath>
+
+<sourceGroup>
+        <elementData>
+                <absolutePath>&#x2f;Button&#x5b;0&#x5d;</absolutePath>
+
+                <XPath/>
+
+                <automationId>1</automationId>
+
+                <indexForAutomationId/>
+
+                <name>Log On</name>
+
+                <indexForName/>
+
+                <className>Button</className>
+
+                <indexForClassName/>
+
+                <controlType>ControlType.Button</controlType>
+
+                <indexForControlType/>
+
+                <acceleratorKey/>
+
+                <accessKey/>
+
+                <helpText/>
+
+                <localizedControlType>button</localizedControlType>
+
+                <processInfo/>
+
+                <supportedPatterns>InvokePatternIdentifiers.Pattern,LegacyIAccessiblePatternIdentifiers.Pattern</supportedPatterns>
+
+                <frameworkId>Win32</frameworkId>
+
+        </elementData>
+</sourceGroup>
+<sourceCriteria>ABSOLUTE_XPATH</sourceCriteria>
+
+<sourceCriteriaValue>&#x2f;Button&#x5b;0&#x5d;</sourceCriteriaValue>
+
+<sourceElementIndex>0</sourceElementIndex>
+
+      <timeout/>
+
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1290</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>ClickOK</name>
+    <type>Windows-App-GUI-MouseAction</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<actionType>CLICK</actionType>
+
+<horizontalScroll/>
+
+<verticalScroll/>
+
+<toggleState/>
+
+<sourceWindowPath>&#x2f;w&#x5b;Desktop&#x5d;&#x2f;w&#x5b; Connection Options...&#x5d;</sourceWindowPath>
+
+<sourceGroup>
+        <elementData>
+                <absolutePath>&#x2f;Button&#x5b;0&#x5d;</absolutePath>
+
+                <XPath/>
+
+                <automationId>1</automationId>
+
+                <indexForAutomationId/>
+
+                <name>OK</name>
+
+                <indexForName/>
+
+                <className>Button</className>
+
+                <indexForClassName/>
+
+                <controlType>ControlType.Button</controlType>
+
+                <indexForControlType/>
+
+                <acceleratorKey/>
+
+                <accessKey/>
+
+                <helpText/>
+
+                <localizedControlType>button</localizedControlType>
+
+                <processInfo/>
+
+                <supportedPatterns>InvokePatternIdentifiers.Pattern,LegacyIAccessiblePatternIdentifiers.Pattern</supportedPatterns>
+
+                <frameworkId>Win32</frameworkId>
+
+        </elementData>
+</sourceGroup>
+<sourceCriteria>ABSOLUTE_XPATH</sourceCriteria>
+
+<sourceCriteriaValue>&#x2f;Button&#x5b;0&#x5d;</sourceCriteriaValue>
+
+<sourceElementIndex>0</sourceElementIndex>
+
+      <timeout/>
+
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>930</xloc>
+      <yloc>150</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>ClickOptions</name>
+    <type>Windows-App-GUI-MouseAction</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<actionType>CLICK</actionType>
+
+<horizontalScroll/>
+
+<verticalScroll/>
+
+<toggleState/>
+
+<sourceWindowPath>&#x2f;w&#x5b;Desktop&#x5d;&#x2f;w&#x5b;UltraVNC Viewer - Win32 1.0.9.6.1&#x5d;</sourceWindowPath>
+
+<sourceGroup>
+        <elementData>
+                <absolutePath>&#x2f;Button&#x5b;3&#x5d;</absolutePath>
+
+                <XPath/>
+
+                <automationId>1012</automationId>
+
+                <indexForAutomationId/>
+
+                <name>Options...</name>
+
+                <indexForName/>
+
+                <className>Button</className>
+
+                <indexForClassName/>
+
+                <controlType>ControlType.Button</controlType>
+
+                <indexForControlType/>
+
+                <acceleratorKey/>
+
+                <accessKey/>
+
+                <helpText/>
+
+                <localizedControlType>button</localizedControlType>
+
+                <processInfo/>
+
+                <supportedPatterns>InvokePatternIdentifiers.Pattern,LegacyIAccessiblePatternIdentifiers.Pattern</supportedPatterns>
+
+                <frameworkId>Win32</frameworkId>
+
+        </elementData>
+</sourceGroup>
+<sourceCriteria>ABSOLUTE_XPATH</sourceCriteria>
+
+<sourceCriteriaValue>&#x2f;Button&#x5b;3&#x5d;</sourceCriteriaValue>
+
+<sourceElementIndex>0</sourceElementIndex>
+
+      <timeout/>
+
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>570</xloc>
+      <yloc>150</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Copy rows to result</name>
+    <type>RowsToResult</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>810</xloc>
+      <yloc>360</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FilterRowsReturn</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>      <field>        <name>ip</name>
+      </field>      <field>        <name>ticket</name>
+      </field>      <field>        <name>errorDescripition</name>
+      </field>      <field>        <name>errorStep</name>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>930</xloc>
+      <yloc>360</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Get Variables</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>senhaVNC</name>
+        <variable>&#x24;&#x7b;SenhaVNC&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ip</name>
+        <variable>&#x24;&#x7b;ip&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ticket</name>
+        <variable>&#x24;&#x7b;ticket&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>90</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>LogFail</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage>&#x3c;---------------Failure-----------&#x3e;</logmessage>
+    <fields>
+      <field>
+        <name>senhaVNC</name>
+        </field>
+      <field>
+        <name>ip</name>
+        </field>
+      <field>
+        <name>ticket</name>
+        </field>
+      <field>
+        <name>errorDescripition</name>
+        </field>
+      <field>
+        <name>errorStep</name>
+        </field>
+      </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1170</xloc>
+      <yloc>360</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>LogSucces</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage>&#x3c;-----------------Sucesso------------&#x3e;</logmessage>
+    <fields>
+      <field>
+        <name>senhaVNC</name>
+        </field>
+      <field>
+        <name>ip</name>
+        </field>
+      <field>
+        <name>ticket</name>
+        </field>
+      <field>
+        <name>errorDescripition</name>
+        </field>
+      <field>
+        <name>errorStep</name>
+        </field>
+      </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1050</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>PasswordVisivel</name>
+    <type>Windows-App-GUI-ElementAction</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<actionType>WAIT_UNTIL</actionType>
+        <windowPath>&#x2f;w&#x5b;Desktop&#x5d;&#x2f;w&#x5b;VNC Authentication&#x5d;</windowPath>
+
+<elementData>
+        <absolutePath>&#x2f;Edit&#x5b;0&#x5d;</absolutePath>
+
+        <XPath/>
+
+        <automationId>1009</automationId>
+
+        <indexForAutomationId/>
+
+        <name/>
+
+        <indexForName/>
+
+        <className>Edit</className>
+
+        <indexForClassName/>
+
+        <controlType>ControlType.Edit</controlType>
+
+        <indexForControlType/>
+
+        <acceleratorKey/>
+
+        <accessKey/>
+
+        <helpText/>
+
+        <localizedControlType>edit</localizedControlType>
+
+        <processInfo/>
+
+        <supportedPatterns>ValuePatternIdentifiers.Pattern,LegacyIAccessiblePatternIdentifiers.Pattern</supportedPatterns>
+
+        <frameworkId>Win32</frameworkId>
+
+</elementData>
+<criteria>ABSOLUTE_XPATH</criteria>
+
+<criteriaValue>&#x2f;Edit&#x5b;0&#x5d;</criteriaValue>
+
+<elementIndex>0</elementIndex>
+
+<elementProperty>IS_ELEMENT_VISIBLE</elementProperty>
+
+<reverseCondition>N</reverseCondition>
+
+<timeout/>
+
+<outVariable/>
+
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1170</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>ReturnSuccess</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var errorDescripition &#x3d; &#x27;Sucesso&#x27;&#xd;&#xa;&#xd;&#xa;var errorStep &#x3d; &#x27;Sucesso&#x27;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>errorDescripition</name>
+        <rename>errorDescripition</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>errorStep</name>
+        <rename>errorStep</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>930</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>SetIP</name>
+    <type>Windows-App-GUI-Write</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <setTextFields><field>        <elementData>
+        <absolutePath>&#x2f;ComboBox&#x5b;0&#x5d;&#x2f;Edit&#x5b;0&#x5d;</absolutePath>
+
+        <XPath/>
+
+        <automationId>1001</automationId>
+
+        <indexForAutomationId/>
+
+        <name>VNC Server&#x3a;</name>
+
+        <indexForName/>
+
+        <className>Edit</className>
+
+        <indexForClassName/>
+
+        <controlType>ControlType.Edit</controlType>
+
+        <indexForControlType/>
+
+        <acceleratorKey/>
+
+        <accessKey/>
+
+        <helpText/>
+
+        <localizedControlType>edit</localizedControlType>
+
+        <processInfo/>
+
+        <supportedPatterns>ValuePatternIdentifiers.Pattern,TextPatternIdentifiers.Pattern,LegacyIAccessiblePatternIdentifiers.Pattern,TextPattern2Identifiers.Pattern</supportedPatterns>
+
+        <frameworkId>Win32</frameworkId>
+
+        </elementData>
+        <windowPath>&#x2f;w&#x5b;Desktop&#x5d;&#x2f;w&#x5b;UltraVNC Viewer - Win32 1.0.9.6.1&#x5d;</windowPath>
+
+        <criteria>Absolute XPath</criteria>
+
+        <criteriaValue>&#x2f;ComboBox&#x5b;0&#x5d;&#x2f;Edit&#x5b;0&#x5d;</criteriaValue>
+
+        <elementIndex>0</elementIndex>
+
+        <actionType>Set New Text</actionType>
+        <Text>ip</Text>
+
+</field>      </setTextFields><timeout/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>450</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>SetScaleView</name>
+    <type>Windows-App-GUI-Write</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <setTextFields><field>        <elementData>
+        <absolutePath>&#x2f;ComboBox&#x5b;0&#x5d;&#x2f;Edit&#x5b;0&#x5d;</absolutePath>
+
+        <XPath/>
+
+        <automationId>1001</automationId>
+
+        <indexForAutomationId/>
+
+        <name>by</name>
+
+        <indexForName/>
+
+        <className>Edit</className>
+
+        <indexForClassName/>
+
+        <controlType>ControlType.Edit</controlType>
+
+        <indexForControlType/>
+
+        <acceleratorKey/>
+
+        <accessKey/>
+
+        <helpText/>
+
+        <localizedControlType>edit</localizedControlType>
+
+        <processInfo/>
+
+        <supportedPatterns>ValuePatternIdentifiers.Pattern,TextPatternIdentifiers.Pattern,LegacyIAccessiblePatternIdentifiers.Pattern,TextPattern2Identifiers.Pattern</supportedPatterns>
+
+        <frameworkId>Win32</frameworkId>
+
+        </elementData>
+        <windowPath>&#x2f;w&#x5b;Desktop&#x5d;&#x2f;w&#x5b; Connection Options...&#x5d;</windowPath>
+
+        <criteria>Absolute XPath</criteria>
+
+        <criteriaValue>&#x2f;ComboBox&#x5b;0&#x5d;&#x2f;Edit&#x5b;0&#x5d;</criteriaValue>
+
+        <elementIndex>0</elementIndex>
+
+        <actionType>Set New Text</actionType>
+        <Text>100</Text>
+
+</field>      </setTextFields><timeout/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>810</xloc>
+      <yloc>150</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>SetSenha</name>
+    <type>Windows-App-GUI-Write</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <setTextFields><field>        <elementData>
+        <absolutePath>&#x2f;Edit&#x5b;0&#x5d;</absolutePath>
+
+        <XPath/>
+
+        <automationId>1009</automationId>
+
+        <indexForAutomationId/>
+
+        <name/>
+
+        <indexForName/>
+
+        <className>Edit</className>
+
+        <indexForClassName/>
+
+        <controlType>ControlType.Edit</controlType>
+
+        <indexForControlType/>
+
+        <acceleratorKey/>
+
+        <accessKey/>
+
+        <helpText/>
+
+        <localizedControlType>edit</localizedControlType>
+
+        <processInfo/>
+
+        <supportedPatterns>ValuePatternIdentifiers.Pattern,LegacyIAccessiblePatternIdentifiers.Pattern</supportedPatterns>
+
+        <frameworkId>Win32</frameworkId>
+
+        </elementData>
+        <windowPath>&#x2f;w&#x5b;Desktop&#x5d;&#x2f;w&#x5b;VNC Authentication&#x5d;</windowPath>
+
+        <criteria>Absolute XPath</criteria>
+
+        <criteriaValue>&#x2f;Edit&#x5b;0&#x5d;</criteriaValue>
+
+        <elementIndex>0</elementIndex>
+
+        <actionType>Set New Text</actionType>
+        <Text>senhaVNC</Text>
+
+</field>      </setTextFields><timeout/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1290</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Try</name>
+    <type>Try</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+             <tryCatchPairName>PS_Try78810465943466</tryCatchPairName>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>210</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>UltraVncVisivel</name>
+    <type>Windows-App-GUI-ElementAction</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<actionType>WAIT_UNTIL</actionType>
+        <windowPath>&#x2f;w&#x5b;Desktop&#x5d;&#x2f;w&#x5b;UltraVNC Viewer - Win32 1.0.9.6.1&#x5d;</windowPath>
+
+<elementData>
+        <absolutePath>&#x2f;Group&#x5b;0&#x5d;</absolutePath>
+
+        <XPath/>
+
+        <automationId/>
+
+        <indexForAutomationId/>
+
+        <name>Quick Options</name>
+
+        <indexForName/>
+
+        <className>Button</className>
+
+        <indexForClassName/>
+
+        <controlType>ControlType.Group</controlType>
+
+        <indexForControlType/>
+
+        <acceleratorKey/>
+
+        <accessKey/>
+
+        <helpText/>
+
+        <localizedControlType>group</localizedControlType>
+
+        <processInfo/>
+
+        <supportedPatterns>LegacyIAccessiblePatternIdentifiers.Pattern</supportedPatterns>
+
+        <frameworkId>Win32</frameworkId>
+
+</elementData>
+<criteria>ABSOLUTE_XPATH</criteria>
+
+<criteriaValue>&#x2f;Group&#x5b;0&#x5d;</criteriaValue>
+
+<elementIndex>0</elementIndex>
+
+<elementProperty>IS_ELEMENT_VISIBLE</elementProperty>
+
+<reverseCondition>N</reverseCondition>
+
+<timeout>30</timeout>
+
+<outVariable/>
+
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>330</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>ClickConnect</source_step>
+        <target_step>Catch</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>PS_Try78810465943466_NumberOfErrors</nr_valuename>
+        <descriptions_valuename>PS_Try78810465943466_ErrorDescription</descriptions_valuename>
+        <fields_valuename>PS_Try78810465943466_ErrorField</fields_valuename>
+        <codes_valuename>PS_Try78810465943466_ErrorCode</codes_valuename>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>ClickLogOn</source_step>
+        <target_step>Catch</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>PS_Try78810465943466_NumberOfErrors</nr_valuename>
+        <descriptions_valuename>PS_Try78810465943466_ErrorDescription</descriptions_valuename>
+        <fields_valuename>PS_Try78810465943466_ErrorField</fields_valuename>
+        <codes_valuename>PS_Try78810465943466_ErrorCode</codes_valuename>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>PasswordVisivel</source_step>
+        <target_step>Catch</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>PS_Try78810465943466_NumberOfErrors</nr_valuename>
+        <descriptions_valuename>PS_Try78810465943466_ErrorDescription</descriptions_valuename>
+        <fields_valuename>PS_Try78810465943466_ErrorField</fields_valuename>
+        <codes_valuename>PS_Try78810465943466_ErrorCode</codes_valuename>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>SetIP</source_step>
+        <target_step>Catch</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>PS_Try78810465943466_NumberOfErrors</nr_valuename>
+        <descriptions_valuename>PS_Try78810465943466_ErrorDescription</descriptions_valuename>
+        <fields_valuename>PS_Try78810465943466_ErrorField</fields_valuename>
+        <codes_valuename>PS_Try78810465943466_ErrorCode</codes_valuename>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>SetSenha</source_step>
+        <target_step>Catch</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>PS_Try78810465943466_NumberOfErrors</nr_valuename>
+        <descriptions_valuename>PS_Try78810465943466_ErrorDescription</descriptions_valuename>
+        <fields_valuename>PS_Try78810465943466_ErrorField</fields_valuename>
+        <codes_valuename>PS_Try78810465943466_ErrorCode</codes_valuename>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+      <error>
+        <source_step>UltraVncVisivel</source_step>
+        <target_step>Catch</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename>PS_Try78810465943466_NumberOfErrors</nr_valuename>
+        <descriptions_valuename>PS_Try78810465943466_ErrorDescription</descriptions_valuename>
+        <fields_valuename>PS_Try78810465943466_ErrorField</fields_valuename>
+        <codes_valuename>PS_Try78810465943466_ErrorCode</codes_valuename>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+  <slave-step-copy-partition-distribution>
+  </slave-step-copy-partition-distribution>
+  <slave_workflow>N</slave_workflow>
+</transformation>

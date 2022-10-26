@@ -1,0 +1,936 @@
+<transformation>
+  <info>
+    <name>414_ManutencaoVNC</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <directory>&#x2f;</directory>
+    <parameters>
+      <parameter>
+        <name>ticket</name>
+        <description>Ticket Chamado</description>
+        <type>String</type>
+        <uiControlType>TextBox</uiControlType>
+        <list_of_values/>
+        <valueSeparator/>
+        <default_value/>
+        <secret>N</secret>
+        <optional>N</optional>
+        <runtime>Y</runtime>
+      </parameter>
+      <parameter>
+        <name>ip</name>
+        <description>IP do Monitor</description>
+        <type>String</type>
+        <uiControlType>TextBox</uiControlType>
+        <list_of_values/>
+        <valueSeparator/>
+        <default_value/>
+        <secret>N</secret>
+        <optional>N</optional>
+        <runtime>Y</runtime>
+      </parameter>
+    </parameters>
+    <parameterConfiguration>
+      <grouping>
+      </grouping>
+    </parameterConfiguration>
+    <ps_variables>
+    </ps_variables>
+    <logging_table>
+    </logging_table>
+    <size_rowset>10000</size_rowset>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+    <created_user>-</created_user>
+    <created_date>2022&#x2f;09&#x2f;13 09&#x3a;37&#x3a;19.425</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2022&#x2f;10&#x2f;26 08&#x3a;47&#x3a;19.417</modified_date>
+	<key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <is_key_private>N</is_key_private>
+  </info>
+  <notepads>
+  </notepads>
+  <groups>
+  </groups>
+  <order>
+    <hop>
+      <from>GetDiretory</from>
+      <to>ReplaceDirectory</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>ReplaceDirectory</from>
+      <to>FecharDDC</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FecharDDC</from>
+      <to>StatusFecharLog</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>StatusFecharLog</from>
+      <to>FilterStatusFecharDDC</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>AbrirDDC</from>
+      <to>StatusAbrirLog</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>StatusAbrirLog</from>
+      <to>FilterStatusAbrirDDC</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterStatusFecharDDC</from>
+      <to>FilterReturn</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterReturn</from>
+      <to>Copy rows to result</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterReturn 1</from>
+      <to>Copy rows to result 1</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterStatusAbrirDDC</from>
+      <to>FilterReturn 1</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterReturn 2</from>
+      <to>Copy rows to result 2</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterStatusFecharDDC</from>
+      <to>RemoveStatus</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>RemoveStatus</from>
+      <to>AbrirDDC</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>FilterStatusAbrirDDC</from>
+      <to>RemoveStatus 1</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>RemoveStatus 1</from>
+      <to>ValidateImageErrorVNC</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>ValidateImageErrorVNC</from>
+      <to>StatusValidaLog</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>StatusValidaLog</from>
+      <to>FilterReturn 2</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>Intermediate Status</from>
+      <to>Dummy &#x28;do nothing&#x29;</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+    <hop>
+      <from>GetDiretory</from>
+      <to>Intermediate Status</to>
+      <enabled>Y</enabled>
+      <visible>Y</visible>
+    </hop>
+  </order>
+  <step>
+    <name>AbrirDDC</name>
+    <type>ExecutePythonScript</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<rows_to_process>ALL</rows_to_process>
+<rows_to_process_size/>
+<reservoir_sampling>N</reservoir_sampling>
+<reservoir_sampling_size/>
+<reservoir_sampling_seed>1</reservoir_sampling_seed>
+<include_input_as_output>Y</include_input_as_output>
+<py_script>from biblios_ae import Valida_Imagem as vi&#xd;&#xa;from biblios_ae import GetPosition_Atual as gp&#xd;&#xa;import pyautogui, autoit&#xd;&#xa;&#xd;&#xa;caminho &#x3d; dy&#x5b;&#x22;directory&#x22;&#x5d;&#x5b;0&#x5d;&#xd;&#xa;&#xd;&#xa;status &#x3d; &#x27;&#x27;&#xd;&#xa;parar &#x3d; False&#xd;&#xa;iniciar &#x3d; caminho &#x2b; &#x27;&#x2f;Iniciar.PNG&#x27;&#xd;&#xa;pesquisar &#x3d; caminho &#x2b; &#x27;&#x2f;Pesquisar.PNG&#x27;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;try&#x3a;&#xd;&#xa;    while&#x28;parar &#x3d;&#x3d; False&#x29;&#x3a;&#xd;&#xa;        &#x23; &#x3c;-----------------Clicar Menu Iniciar-------------&#x3e;&#xd;&#xa;        if vi.Validar_Imagem&#x28;iniciar, 2, 10&#x29;&#x3a;&#xd;&#xa;            position &#x3d; gp.Get_position_img&#x28;iniciar, 2, 10&#x29;&#xd;&#xa;            pyautogui.click&#x28;position, clicks&#x3d;1&#x29;&#xd;&#xa;        else&#x3a;&#xd;&#xa;            status &#x3d; &#x27;Falha ao Clicar Menu Iniciar no VNC&#x27;&#xd;&#xa;            parar &#x3d; True&#xd;&#xa;            break&#xd;&#xa;        &#x23; &#x3c;-----------------Clicar Pesquisar Programas--------------------&#x3e;&#xd;&#xa;        if vi.Validar_Imagem&#x28;pesquisar, 2, 10&#x29;&#x3a;&#xd;&#xa;            position &#x3d; gp.Get_position_img&#x28;pesquisar, 2, 10&#x29;&#xd;&#xa;            pyautogui.click&#x28;position, clicks&#x3d;1&#x29;&#xd;&#xa;            &#x23; &#x3c;-----------------Digitar Nome App---------------------------&#x3e;&#xd;&#xa;            pyautogui.sleep&#x28;2&#x29;&#xd;&#xa;            pyautogui.write&#x28;&#x27;ddc&#x27;, interval&#x3d;0.5&#x29;&#xd;&#xa;            pyautogui.sleep&#x28;5&#x29;&#xd;&#xa;            pyautogui.press&#x28;&#x27;enter&#x27;&#x29;&#xd;&#xa;            &#x23; &#x3c;------------------Retorno Sucesso---------------------------&#x3e;&#xd;&#xa;            status &#x3d; &#x27;Sucesso&#x27;&#xd;&#xa;            parar &#x3d; True&#xd;&#xa;        else&#x3a;&#xd;&#xa;            status &#x3d; &#x27;Falha ao Clicar para Pesquisar Programas no VNC&#x27;&#xd;&#xa;            parar &#x3d; True&#xd;&#xa;            break&#xd;&#xa;except&#x3a;&#xd;&#xa;    status &#x3d; &#x27;Falha ao Abrir DDC&#x27;&#xd;&#xa;</py_script>
+<load_script_at_runtime>N</load_script_at_runtime>
+<script_to_load/>
+<continue_on_unset_vars>N</continue_on_unset_vars>
+<py_vars_to_get>status</py_vars_to_get>
+<include_frame_row_index>N</include_frame_row_index>
+   <frame_names>
+    <frame_name0>dy</frame_name0>
+    </frame_names>
+   <incoming_step_names>
+    <step_name0>RemoveStatus</step_name0>
+   </incoming_step_names>
+   <output_fields>
+        <output_field>
+            <field_name>directory</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>ticket</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>ip</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>status</field_name>
+
+            <type>String</type>
+        </output_field>
+    </output_fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>810</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Copy rows to result</name>
+    <type>RowsToResult</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>450</xloc>
+      <yloc>180</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Copy rows to result 1</name>
+    <type>RowsToResult</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>930</xloc>
+      <yloc>180</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Copy rows to result 2</name>
+    <type>RowsToResult</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1170</xloc>
+      <yloc>300</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Dummy &#x28;do nothing&#x29;</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>90</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FecharDDC</name>
+    <type>ExecutePythonScript</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<rows_to_process>ALL</rows_to_process>
+<rows_to_process_size/>
+<reservoir_sampling>N</reservoir_sampling>
+<reservoir_sampling_size/>
+<reservoir_sampling_seed>1</reservoir_sampling_seed>
+<include_input_as_output>Y</include_input_as_output>
+<py_script>from biblios_ae import Valida_Imagem as vi&#xd;&#xa;from biblios_ae import GetPosition_Atual as gp&#xd;&#xa;import pyautogui&#xd;&#xa;&#xd;&#xa;caminho &#x3d; dy&#x5b;&#x22;directory&#x22;&#x5d;&#x5b;0&#x5d;&#xd;&#xa;&#xd;&#xa;status &#x3d; None&#xd;&#xa;parar &#x3d; False&#xd;&#xa;ctrl_alt_del &#x3d; caminho &#x2b; &#x27;&#x2f;CtrlAltDel.PNG&#x27;&#xd;&#xa;gerenciador_tarefas &#x3d; caminho &#x2b; &#x27;&#x2f;GerenciadorTarefas.PNG&#x27;&#xd;&#xa;gerenciador_tarefas2 &#x3d; caminho &#x2b; &#x27;&#x2f;GerenciadorTarefas2.PNG&#x27;&#xd;&#xa;wpf_ddc &#x3d; caminho &#x2b; &#x27;&#x2f;WpfDdc.PNG&#x27;&#xd;&#xa;finalizar_tarefa &#x3d; caminho &#x2b; &#x27;&#x2f;FinalizarTarefa.PNG&#x27;&#xd;&#xa;ddc &#x3d; caminho &#x2b; &#x27;&#x2f;ddc.PNG&#x27;&#xd;&#xa;fechar &#x3d; caminho &#x2b; &#x27;&#x2f;fechar.PNG&#x27;&#xd;&#xa;&#xd;&#xa;try&#x3a;&#xd;&#xa;    while&#x28;parar &#x3d;&#x3d; False&#x29;&#x3a;&#xd;&#xa;        &#x23; &#x3c;-----------------Clicar Ctrl Alt Del-------------&#x3e;&#xd;&#xa;        if vi.Validar_Imagem&#x28;ctrl_alt_del, 2, 10&#x29;&#x3a;&#xd;&#xa;            position &#x3d; gp.Get_position_img&#x28;ctrl_alt_del, 2, 10&#x29;&#xd;&#xa;            pyautogui.click&#x28;position, clicks&#x3d;1&#x29;&#xd;&#xa;        else&#x3a;&#xd;&#xa;            status &#x3d; &#x27;Falha ao Clicar Ctrl Alt Del no VNC&#x27;&#xd;&#xa;            parar &#x3d; True&#xd;&#xa;            break&#xd;&#xa;        &#x23; &#x3c;--------------Abrir Gerenciador de Tarefas---------------&#x3e;&#xd;&#xa;        if vi.Validar_Imagem&#x28;gerenciador_tarefas, 5, 10&#x29; or vi.Validar_Imagem&#x28;gerenciador_tarefas, 5, 10&#x29;&#x3a;&#xd;&#xa;            position &#x3d; gp.Get_position_img&#x28;gerenciador_tarefas, 5, 10&#x29;&#xd;&#xa;            pyautogui.click&#x28;position, clicks&#x3d;1&#x29;&#xd;&#xa;        else&#x3a;&#xd;&#xa;            status &#x3d; &#x27;Falha ao Abrir Gerenciador de Tarefas no VNC&#x27;&#xd;&#xa;            parar &#x3d; True&#xd;&#xa;            break&#xd;&#xa;        &#x23; &#x3c;--------------Selecionar tarefa DDC-----------------&#x3e;&#xd;&#xa;        if vi.Validar_Imagem&#x28;wpf_ddc, 10, 5&#x29;&#x3a;&#xd;&#xa;            position &#x3d; gp.Get_position_img&#x28;wpf_ddc, 5, 10&#x29;&#xd;&#xa;            pyautogui.click&#x28;position, clicks&#x3d;1&#x29;&#xd;&#xa;        else&#x3a;&#xd;&#xa;            status &#x3d; &#x27;Falha ao Selecionar Tarefa DDC no VNC&#x27;&#xd;&#xa;            parar &#x3d; True&#xd;&#xa;            break&#xd;&#xa;        &#x23; &#x3c;---------------Finalizar Tarefa-------------------&#x3e;&#xd;&#xa;        if vi.Validar_Imagem&#x28;finalizar_tarefa, 2, 10&#x29;&#x3a;&#xd;&#xa;            position &#x3d; gp.Get_position_img&#x28;finalizar_tarefa, 2, 10&#x29;&#xd;&#xa;            pyautogui.click&#x28;position, clicks&#x3d;1&#x29;&#xd;&#xa;            status &#x3d; &#x27;Sucesso&#x27;&#xd;&#xa;            parar &#x3d; True&#xd;&#xa;        else&#x3a;&#xd;&#xa;            status &#x3d; &#x27;Falha ao Finalizar Tarefa DDC no VNC&#x27;&#xd;&#xa;            parar &#x3d; True&#xd;&#xa;            break&#xd;&#xa;        &#x23; &#x3c;-----------------Fechar Gerenciador de Tarefas-------------------&#x3e;&#xd;&#xa;        if vi.Validar_Imagem&#x28;fechar, 2, 10&#x29;&#x3a;&#xd;&#xa;            position &#x3d; gp.Get_position_img&#x28;fechar, 2, 10&#x29;&#xd;&#xa;            pyautogui.click&#x28;position, clicks&#x3d;1&#x29;&#xd;&#xa;            parar &#x3d; True&#xd;&#xa;        else&#x3a;&#xd;&#xa;            status &#x3d; &#x27;Falha ao Fechar Gerenciador de Tarefas no VNC&#x27;&#xd;&#xa;            parar &#x3d; True&#xd;&#xa;            break&#xd;&#xa;            &#xd;&#xa;&#xd;&#xa;except&#x3a;&#xd;&#xa;    status &#x3d; &#x27;Falha ao Fechar DDC&#x27;</py_script>
+<load_script_at_runtime>N</load_script_at_runtime>
+<script_to_load/>
+<continue_on_unset_vars>N</continue_on_unset_vars>
+<py_vars_to_get>status</py_vars_to_get>
+<include_frame_row_index>N</include_frame_row_index>
+   <frame_names>
+    <frame_name0>dy</frame_name0>
+    </frame_names>
+   <incoming_step_names>
+    <step_name0>ReplaceDirectory</step_name0>
+   </incoming_step_names>
+   <output_fields>
+        <output_field>
+            <field_name>directory</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>ticket</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>ip</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>status</field_name>
+
+            <type>String</type>
+        </output_field>
+    </output_fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>330</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FilterReturn</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>      <field>        <name>ticket</name>
+      </field>      <field>        <name>status</name>
+      </field>      <field>        <name>ip</name>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>570</xloc>
+      <yloc>180</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FilterReturn 1</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>      <field>        <name>ticket</name>
+      </field>      <field>        <name>status</name>
+      </field>      <field>        <name>ip</name>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1050</xloc>
+      <yloc>180</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FilterReturn 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>      <field>        <name>ticket</name>
+      </field>      <field>        <name>status</name>
+      </field>      <field>        <name>ip</name>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1290</xloc>
+      <yloc>300</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FilterStatusAbrirDDC</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<send_true_to>RemoveStatus 1</send_true_to>
+<send_false_to>FilterReturn 1</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>status</leftvalue>
+ <function>&#x3d;</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Sucesso</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1050</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>FilterStatusFecharDDC</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<send_true_to>RemoveStatus</send_true_to>
+<send_false_to>FilterReturn</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>status</leftvalue>
+ <function>&#x3d;</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>Sucesso</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>570</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>GetDiretory</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>directory</name>
+        <variable>&#x24;&#x7b;ImgCaminho&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ticket</name>
+        <variable>&#x24;&#x7b;ticket&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>ip</name>
+        <variable>&#x24;&#x7b;ip&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>90</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Intermediate Status</name>
+    <type>IntermidiateStatus</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <status>Realizar manuten&#xe7;&#xe3;o do monitor atrav&#xe9;s do VNC.</status>
+      <option>send for all rows</option>
+      <batchSize>0</batchSize>
+      <total>0</total>
+      <success>0</success>
+      <rowOpt>implicit row count</rowOpt>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>90</xloc>
+      <yloc>150</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>RemoveStatus</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>status</name>
+      </remove>    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>690</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>RemoveStatus 1</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>status</name>
+      </remove>    </fields>    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1170</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>ReplaceDirectory</name>
+    <type>ReplaceString</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>directory</in_stream_name>
+        <out_stream_name/>
+        <use_regex>no</use_regex>
+        <replace_string>file&#x3a;&#x2f;&#x2f;&#x2f;</replace_string>
+        <replace_by_string/>
+        <set_empty_string>Y</set_empty_string>
+        <replace_field_by_string/>
+        <whole_word>no</whole_word>
+        <case_sensitive>no</case_sensitive>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>210</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>StatusAbrirLog</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage>&#x3c;------------Status Abrir Log-----------&#x3e;</logmessage>
+    <fields>
+      </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>930</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>StatusFecharLog</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage>&#x3c;------------Status Fechar Log-----------&#x3e;</logmessage>
+    <fields>
+      </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>450</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>StatusValidaLog</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <loglevel>log_level_basic</loglevel>
+      <displayHeader>Y</displayHeader>
+      <limitRows>N</limitRows>
+      <limitRowsNumber>0</limitRowsNumber>
+      <logmessage>&#x3c;------------Status Valida Log-----------&#x3e;</logmessage>
+    <fields>
+      </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1290</xloc>
+      <yloc>180</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>ValidateImageErrorVNC</name>
+    <type>ExecutePythonScript</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<rows_to_process>ALL</rows_to_process>
+<rows_to_process_size/>
+<reservoir_sampling>N</reservoir_sampling>
+<reservoir_sampling_size/>
+<reservoir_sampling_seed>1</reservoir_sampling_seed>
+<include_input_as_output>Y</include_input_as_output>
+<py_script>&#x23; &#x3c;---------------Importar Biblioteca-------------------&#x3e;&#xd;&#xa;from biblios_ae import Valida_Imagem as vi&#xd;&#xa;&#xd;&#xa;&#x23; &#x3c;------------------Importar imagem-------------------------&#x3e;&#xd;&#xa;caminho &#x3d; dy&#x5b;&#x22;directory&#x22;&#x5d;&#x5b;0&#x5d;&#xd;&#xa;vnc_success_1 &#x3d; caminho &#x2b; &#x27;&#x2f;SuccesVNC.PNG&#x27;&#xd;&#xa;vnc_success_2 &#x3d; caminho &#x2b; &#x27;&#x2f;SuccesVNC2.PNG&#x27;&#xd;&#xa;vnc_success_3 &#x3d; caminho &#x2b; &#x27;&#x2f;SuccesVNC3.PNG&#x27;&#xd;&#xa;vnc_failure_1 &#x3d; caminho &#x2b; &#x27;&#x2f;Faillure1.PNG&#x27;&#xd;&#xa;vnc_failure_2 &#x3d; caminho &#x2b; &#x27;&#x2f;Faillure2.PNG&#x27;&#xd;&#xa;&#xd;&#xa;&#x23; &#x3c;------------------Variaveis--------------------------------&#x3e;&#xd;&#xa;vnc_active &#x3d; False&#xd;&#xa;status &#x3d; &#x27;&#x27;&#xd;&#xa;&#xd;&#xa;&#x23; &#x3c;------------------Fun&#xe7;&#xe3;o para validar imagem-------------------&#x3e;&#xd;&#xa;try&#x3a;&#xd;&#xa;    &#x23; &#x3c;---------------Verificar Imagens Do VNC n&#xe3;o funcionando-----------------------------&#x3e;&#xd;&#xa;    if vi.Validar_Imagem&#x28;vnc_success_1, 2, 10&#x29; or vi.Validar_Imagem&#x28;vnc_success_2, 2, 10&#x29; or vi.Validar_Imagem&#x28;vnc_success_3, 2, 10&#x29;&#x3a;&#xd;&#xa;        vnc_active &#x3d; True&#xd;&#xa;        status &#x3d; &#x27;VNC em funcionamento&#x27;&#xd;&#xa;&#xd;&#xa;    &#x23; &#x3c;---------------Verificar Imagens do VNC Funcionando-------------------------&#x3e;&#xd;&#xa;    elif vi.Validar_Imagem&#x28;vnc_failure_1, 2, 20&#x29; or vi.Validar_Imagem&#x28;vnc_failure_2, 1, 30&#x29;&#x3a;&#xd;&#xa;        vnc_active &#x3d; False&#xd;&#xa;        status &#x3d; &#x27;VNC n&#xe3;o funcionando&#x27;&#xd;&#xa;    else&#x3a;&#xd;&#xa;        status &#x3d; False&#xd;&#xa;        status &#x3d; &#x27;Parametro de busca n&#xe3;o encontrado&#x27;&#xd;&#xa;&#xd;&#xa;&#x23; &#x3c;------------------Exce&#xe7;&#xe3;o de arquivos n&#xe3;o encontrado------------------------&#x3e;&#xd;&#xa;except FileNotFoundError &#x3a;&#xd;&#xa;    vnc_active &#x3d; False&#xd;&#xa;    status &#x3d; &#x27;Falha ao carregar arquivos de verifica&#xe7;&#xe3;o.&#x27;&#xd;&#xa;&#xd;&#xa;&#x23; &#x3c;-------------------Demais Exce&#xe7;&#xf5;es-------------------------&#x3e;&#xd;&#xa;except&#x3a;&#xd;&#xa;    vnc_active &#x3d; False&#xd;&#xa;    status &#x3d; &#x27;Falha ao realizar a verifica&#xe7;&#xe3;o de imagem do VNC.&#x27;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;</py_script>
+<load_script_at_runtime>N</load_script_at_runtime>
+<script_to_load/>
+<continue_on_unset_vars>N</continue_on_unset_vars>
+<py_vars_to_get>vnc_active,status</py_vars_to_get>
+<include_frame_row_index>N</include_frame_row_index>
+   <frame_names>
+    <frame_name0>dy</frame_name0>
+    </frame_names>
+   <incoming_step_names>
+    <step_name0>RemoveStatus 1</step_name0>
+   </incoming_step_names>
+   <output_fields>
+        <output_field>
+            <field_name>directory</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>ticket</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>ip</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>vnc_active</field_name>
+
+            <type>String</type>
+        </output_field>
+        <output_field>
+            <field_name>status</field_name>
+
+            <type>String</type>
+        </output_field>
+    </output_fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1290</xloc>
+      <yloc>60</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step_error_handling>
+      <error>
+        <source_step>Intermediate Status</source_step>
+        <target_step>Dummy &#x28;do nothing&#x29;</target_step>
+        <is_enabled>Y</is_enabled>
+        <nr_valuename/>
+        <descriptions_valuename/>
+        <fields_valuename/>
+        <codes_valuename/>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
+  </step_error_handling>
+  <slave-step-copy-partition-distribution>
+  </slave-step-copy-partition-distribution>
+  <slave_workflow>N</slave_workflow>
+</transformation>
